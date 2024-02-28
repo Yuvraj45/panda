@@ -30,7 +30,15 @@ public class InfyPandaController {
   }
     
   @PutMApping("order/{orderId}/{quantityNew}")")
-  String updateOrder(@PathVAriable @Valid 
+  String updateOrder(@PathVAriable @Valid @Min(value=1,message="{order.orderid.invalid}") Int
+    String msg=infyPandaService.updateOrder(orderId, quantityNew);
+    return msg;
+  }
+
+  @DeleteMapping("order/{orderId}")
+  String cancelOrder(@PathVariable @Valid @Min(value=1,message="{order.orderid.invalid}") Int
+    String msg=infyPnadService.cancelOrder(orderId);
+    return msg
 
 
 
