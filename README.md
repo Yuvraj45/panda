@@ -6,16 +6,16 @@ private int quantity;
 
 <b> infypanda controller</b>
 import java.util.List;
-@RsetController
+@RestController
 @RequestMapping
-@validated
+@Validated
 public class InfyPandaController {
   @Autowired
   public InfyPandaService infyPandaService;
 
   @GetMapping("restaurants/{itemName}")
   List<*RestaurantDTO*> searchRestaurantWithItemName(@PathVariable @Valid String itemName) throws
-    List<*RestaurantDTO*> lis=infyPandaService.searchRestaurantsWithItemName(item);
+    List<*RestaurantDTO*> lis=infyPandaService.searchRestaurantsWithItemName(itemName);
     return lis;
   }
   @GetMApping("ietm/{restaurantName}")
@@ -29,7 +29,7 @@ public class InfyPandaController {
     return msg;
   }
     
-  @PutMApping("order/{orderId}/{quantityNew}")")
+  @PutMApping("order/{orderId}/{quantityNew}")
   String updateOrder(@PathVAriable @Valid @Min(value=1,message="{order.orderid.invalid}") Int
     String msg=infyPandaService.updateOrder(orderId, quantityNew);
     return msg;
@@ -49,7 +49,7 @@ public class InfyPandaController {
     ErrorInfo errorInfo=new ErrorInfo();
     errorInfo.setErrorCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
     error.Info.setErrorMsg(environment.getProperty("General.EXCEPTION_MESSAGE"));
-    return new ResponseEntity<>(errorInfy,HttpStstus.INTERNAL_SERVER_ERROR);
+    return new ResponseEntity<>(errorInfy,HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(InfyPandaException.class)
@@ -59,7 +59,7 @@ public class InfyPandaController {
     ErrorInfo errorInfo=new ErrorInfo();
     errorInfo.setErrorCode(HttpStatus.BAREQUEST.value());
     error.Info.setErrorMsg(environment.getProperty(ex.getmessage()));
-    return new ResponseEntity<*ErrorInfo*>(errorInfy,HttpStstus.BAD_REQUEST);
+    return new ResponseEntity<*ErrorInfo*>(errorInfy,HttpStatus.BAD_REQUEST);
     }
 
 
