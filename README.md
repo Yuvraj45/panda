@@ -38,7 +38,29 @@ public class InfyPandaController {
   @DeleteMapping("order/{orderId}")
   String cancelOrder(@PathVariable @Valid @Min(value=1,message="{order.orderid.invalid}") Int
     String msg=infyPnadService.cancelOrder(orderId);
-    return msg
+    return msg;
+  }
+
+  <b> ExceptionControllerAdvice.java</b>
+  @ExceptionHandler(Exception.class)
+    public ResponseEntity<*ErrorInfy*> generalExceptionHandler(Exception ex)
+    {
+    logger.error(ex.getMessage(),ex);
+    ErrorInfo errorInfo=new ErrorInfo();
+    errorInfo.setErrorCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+    error.Info.setErrorMsg(environment.getProperty("General.EXCEPTION_MESSAGE"));
+    return new ResponseEntity<>(errorInfy,HttpStstus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(InfyPandaException.class)
+     public ResponseEntity<*ErrorInfo*> infyPandaExceptionHandler(InfyPandaException ex)
+    {
+     logger.error(ex.getMessage(),ex);
+    ErrorInfo errorInfo=new ErrorInfo();
+    errorInfo.setErrorCode(HttpStatus.BAREQUEST.value());
+    error.Info.setErrorMsg(environment.getProperty(ex.getmessage()));
+    return new ResponseEntity<*ErrorInfo*>(errorInfy,HttpStstus.BAD_REQUEST);
+    }
 
 
 
